@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Francesco Cesarano · Portfolio</title>
+<meta name="description" content="Senior Analyst @ Accenture · AI Builder · Future Founder · Napoli → il mondo." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --kv-black:        #0e0f10;
+  --kv-black-soft:   #15171a;
+  --kv-white:        #ffffff;
+  --kv-text-dim:     #cccccc;
+  --kv-text-muted:   #8a8d92;
+  --kv-text-faint:   #555a60;
+  --kv-line-dark:    #1f2226;
+  --kv-hairline:     rgba(255,255,255,0.08);
+  --kv-hairline-2:   rgba(255,255,255,0.15);
+  --kv-surface:      rgba(255,255,255,0.035);
+  --kv-surface-2:    rgba(255,255,255,0.07);
+  --kv-green:        #4caf50;
+  --kv-green-bright: #66ff84;
+  --kv-green-glow:   rgba(76,175,80,0.35);
+  --kv-green-tint:   rgba(76,175,80,0.08);
+  --kv-green-line:   rgba(76,175,80,0.25);
+  --kv-amber:        #d4af37;
+  --kv-font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --kv-font-sans:    "Space Grotesk", "Helvetica Neue", -apple-system, sans-serif;
+  --kv-font-body:    "Open Sans", -apple-system, sans-serif;
+  --kv-font-mono:    "JetBrains Mono", "Menlo", "Monaco", monospace;
+  --tracking-caps:   0.16em;
+  --tracking-wide:   0.22em;
+  --tracking-tight: -0.01em;
+  --r-sm: 3px; --r-md: 5px; --r-lg: 10px; --r-xl: 15px; --r-2xl: 20px; --r-pill: 9999px;
+  --sh-green-glow: 0 10px 30px rgba(76,175,80,0.2);
+  --dur-fast:   0.18s; --dur-normal: 0.35s; --dur-slow:   0.7s;
+  --ease: cubic-bezier(.6,.05,.2,1);
+  --container: 1280px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--kv-black); scroll-snap-type: y mandatory; }
+body {
+  font-family: var(--kv-font-body); font-size: 16px; line-height: 1.7;
+  color: var(--kv-text-dim); background: var(--kv-black);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden;
+}
+.boot, .chapter, .foot { scroll-snap-align: start; scroll-snap-stop: always; }
+::selection { background: var(--kv-green); color: var(--kv-black); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.bg-canvas { width: 100%; height: 100%; display: block; }
+.bg-vignette {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.9) 100%);
+}
+.bg-scan {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.06;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.4) 0px, rgba(255,255,255,0.4) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode: overlay;
+}
+
+.hud {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 32px;
+  font-family: var(--kv-font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted);
+  background: linear-gradient(to bottom, rgba(14,15,16,0.85), rgba(14,15,16,0));
+  backdrop-filter: blur(8px) saturate(1.2); -webkit-backdrop-filter: blur(8px) saturate(1.2);
+}
+.hud-left, .hud-right { display: flex; align-items: center; gap: 24px; }
+.hud .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--kv-green); box-shadow: 0 0 12px var(--kv-green); animation: pulse 1.6s ease-in-out infinite; }
+.hud .mono-tag { color: var(--kv-white); letter-spacing: var(--tracking-caps); }
+.hud .sep { color: var(--kv-text-faint); margin: 0 6px; }
+.hud .lang-switch { display: inline-flex; border: 1px solid var(--kv-hairline-2); border-radius: var(--r-pill); overflow: hidden; padding: 2px; }
+.hud .lang-switch button { padding: 4px 10px; font-family: var(--kv-font-mono); font-size: 10px; font-weight: 600; letter-spacing: var(--tracking-caps); color: var(--kv-text-muted); border-radius: var(--r-pill); transition: all var(--dur-fast) var(--ease); }
+.hud .lang-switch button.active { background: var(--kv-green); color: var(--kv-black); }
+.hud .hud-time { color: var(--kv-text-dim); }
+
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+.sidenav { position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 90; display: flex; flex-direction: column; gap: 14px; font-family: var(--kv-font-mono); font-size: 10px; letter-spacing: var(--tracking-caps); }
+.sidenav-item { display: flex; align-items: center; gap: 14px; color: var(--kv-text-faint); transition: color var(--dur-fast) var(--ease); }
+.sidenav-item:hover { color: var(--kv-text-dim); }
+.sidenav-item .tick { width: 24px; height: 1px; background: currentColor; transition: width var(--dur-normal) var(--ease), background var(--dur-fast); }
+.sidenav-item.active { color: var(--kv-green); }
+.sidenav-item.active .tick { width: 44px; background: var(--kv-green); box-shadow: 0 0 8px var(--kv-green-glow); }
+.sidenav-item .label { text-transform: uppercase; font-weight: 500; opacity: 0; transform: translateX(-6px); transition: all var(--dur-normal) var(--ease); white-space: nowrap; }
+.sidenav-item:hover .label, .sidenav-item.active .label { opacity: 1; transform: translateX(0); }
+
+.progress { position: fixed; bottom: 0; left: 0; height: 2px; width: 100%; z-index: 95; background: transparent; }
+.progress-bar { height: 100%; background: linear-gradient(to right, var(--kv-green) 0%, var(--kv-green-bright) 100%); box-shadow: 0 0 12px var(--kv-green-glow); transition: width 0.15s linear; }
+
+.avanti {
+  position: fixed; bottom: 26px; right: 32px; z-index: 96;
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px;
+  border: 1px solid var(--kv-green-line); background: var(--kv-green-tint); color: var(--kv-green-bright);
+  font-family: var(--kv-font-mono); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  border-radius: var(--r-pill); transition: all var(--dur-normal) var(--ease); backdrop-filter: blur(8px);
+}
+.avanti:hover { background: var(--kv-green); color: var(--kv-black); transform: translateY(-2px); box-shadow: var(--sh-green-glow); }
+.avanti .arrow { display: inline-block; transition: transform var(--dur-normal) var(--ease); }
+.avanti:hover .arrow { transform: translateX(4px); }
+
+.chapter { position: relative; z-index: 5; min-height: 100vh; padding: 120px 64px 100px; display: flex; flex-direction: column; justify-content: center; }
+.chapter-inner { max-width: var(--container); margin: 0 auto; width: 100%; }
+.chapter-tag { display: inline-flex; align-items: center; gap: 12px; font-family: var(--kv-font-mono); font-size: 11px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-green); margin-bottom: 28px; }
+.chapter-tag::before { content: ''; width: 8px; height: 8px; background: var(--kv-green); display: inline-block; }
+.chapter-tag .idx { color: var(--kv-text-faint); font-weight: 400; }
+.chapter-title { font-family: var(--kv-font-display); font-size: clamp(2.5rem, 7vw, 6rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.02em; color: var(--kv-white); margin: 0 0 28px; }
+.chapter-title .accent { color: var(--kv-green); font-style: italic; }
+.chapter-title .strike { text-decoration: line-through; color: var(--kv-text-faint); }
+.chapter-lead { font-family: var(--kv-font-body); font-size: clamp(1.05rem, 1.4vw, 1.25rem); font-weight: 300; line-height: 1.65; color: var(--kv-text-dim); max-width: 720px; margin: 0 0 40px; }
+.chapter-eyebrow { font-family: var(--kv-font-mono); font-size: 11px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); display: inline-flex; gap: 12px; align-items: center; }
+
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.chapter.is-active .fade-up, .boot.is-active .fade-up { opacity: 1; transform: none; }
+.chapter.is-active .fade-up.d1, .boot.is-active .fade-up.d1 { transition-delay: 0.1s; }
+.chapter.is-active .fade-up.d2, .boot.is-active .fade-up.d2 { transition-delay: 0.25s; }
+.chapter.is-active .fade-up.d3, .boot.is-active .fade-up.d3 { transition-delay: 0.4s; }
+.chapter.is-active .fade-up.d4, .boot.is-active .fade-up.d4 { transition-delay: 0.55s; }
+.chapter.is-active .fade-up.d5, .boot.is-active .fade-up.d5 { transition-delay: 0.7s; }
+.chapter.is-active .fade-up.d6, .boot.is-active .fade-up.d6 { transition-delay: 0.85s; }
+
+.boot { min-height: 100vh; padding: 120px 64px 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 5; }
+.boot-mono { font-family: var(--kv-font-mono); font-size: 12px; color: var(--kv-green); letter-spacing: var(--tracking-caps); margin-bottom: 40px; min-height: 1.4em; }
+.boot-mono .cursor { display: inline-block; width: 9px; height: 14px; background: var(--kv-green); margin-left: 4px; vertical-align: middle; animation: blink 1s steps(2) infinite; }
+@keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+.boot-name { font-family: var(--kv-font-display); font-size: clamp(3.5rem, 11vw, 9rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.03em; color: var(--kv-white); margin: 0; }
+.boot-name .accent { color: var(--kv-green); font-style: italic; }
+.boot-role { margin-top: 20px; display: inline-flex; align-items: center; gap: 16px; font-family: var(--kv-font-mono); font-size: 13px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-dim); }
+.boot-role .pip { width: 4px; height: 4px; border-radius: 50%; background: var(--kv-text-muted); }
+.boot-quote { margin-top: 70px; max-width: 780px; font-family: var(--kv-font-display); font-style: italic; font-size: clamp(1.15rem, 1.5vw, 1.5rem); font-weight: 300; line-height: 1.5; color: var(--kv-text-dim); }
+.boot-quote .author { display: block; margin-top: 16px; font-family: var(--kv-font-mono); font-style: normal; font-size: 11px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.boot-scroll-hint { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); display: flex; align-items: center; flex-direction: column; gap: 12px; }
+.boot-scroll-hint .line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--kv-green), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; } 50% { transform: scaleY(1); transform-origin: top; opacity: 1; } }
+
+.origin-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; }
+.origin-photo-frame { position: relative; aspect-ratio: 1 / 1.15; background: var(--kv-surface); border: 1px solid var(--kv-hairline); overflow: hidden; border-radius: var(--r-md); }
+.origin-photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.4) contrast(1.05); transition: filter 0.7s var(--ease); }
+.origin-photo-frame:hover img { filter: grayscale(0) contrast(1); }
+.origin-photo-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 60%, rgba(76,175,80,0.18)); pointer-events: none; }
+.origin-photo-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-dim); display: flex; justify-content: space-between; }
+.origin-photo-corner { position: absolute; width: 18px; height: 18px; border: 1px solid var(--kv-green); }
+.origin-photo-corner.tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+.origin-photo-corner.tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+.origin-photo-corner.bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+.origin-photo-corner.br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+.timeline { display: grid; gap: 24px; margin-top: 48px; }
+.tl-item { display: grid; grid-template-columns: 120px 1fr; gap: 32px; padding: 24px 28px; background: var(--kv-surface); border: 1px solid var(--kv-hairline); border-radius: var(--r-lg); position: relative; overflow: hidden; transition: all var(--dur-normal) var(--ease); }
+.tl-item:hover { border-color: var(--kv-green-line); background: var(--kv-surface-2); transform: translateX(4px); }
+.tl-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--kv-green); opacity: 0; transition: opacity var(--dur-normal); }
+.tl-item:hover::before { opacity: 1; }
+.tl-year { font-family: var(--kv-font-mono); font-size: 22px; font-weight: 700; color: var(--kv-green); letter-spacing: -0.02em; display: flex; flex-direction: column; gap: 4px; }
+.tl-year .month { font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.tl-body h3 { margin: 0 0 8px; font-family: var(--kv-font-sans); font-size: 19px; font-weight: 600; color: var(--kv-white); letter-spacing: var(--tracking-tight); }
+.tl-body .tl-co { display: inline-flex; align-items: center; gap: 8px; font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); margin-bottom: 12px; }
+.tl-body .tl-co .badge { padding: 2px 8px; border: 1px solid var(--kv-hairline-2); border-radius: var(--r-sm); color: var(--kv-text-dim); }
+.tl-body p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--kv-text-dim); }
+.tl-tag { display: inline-block; padding: 2px 8px; margin-right: 6px; margin-top: 10px; border: 1px solid var(--kv-green-line); background: var(--kv-green-tint); color: var(--kv-green-bright); font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; border-radius: var(--r-sm); }
+
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+.stat-card { padding: 32px 28px; background: var(--kv-surface); border: 1px solid var(--kv-hairline); border-radius: var(--r-lg); position: relative; overflow: hidden; transition: all var(--dur-normal) var(--ease); }
+.stat-card:hover { border-color: var(--kv-green-line); background: var(--kv-surface-2); }
+.stat-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 100% 0%, var(--kv-green-tint), transparent 60%); opacity: 0; transition: opacity var(--dur-normal); pointer-events: none; }
+.stat-card:hover::after { opacity: 1; }
+.stat-num { font-family: var(--kv-font-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; line-height: 1; color: var(--kv-white); letter-spacing: -0.02em; }
+.stat-num .unit { font-size: 0.45em; color: var(--kv-green); margin-left: 4px; font-style: italic; }
+.stat-label { margin-top: 12px; font-family: var(--kv-font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.stat-card .stat-corner { position: absolute; top: 14px; right: 14px; font-family: var(--kv-font-mono); font-size: 9px; color: var(--kv-text-faint); letter-spacing: var(--tracking-caps); }
+
+.skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 60px; margin-top: 48px; }
+.skill-group h4 { font-family: var(--kv-font-mono); font-size: 11px; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-green); margin: 0 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--kv-hairline); }
+.skill-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px dashed var(--kv-hairline); }
+.skill-row:last-child { border-bottom: 0; }
+.skill-name { font-family: var(--kv-font-sans); font-size: 14px; font-weight: 500; color: var(--kv-white); letter-spacing: -0.01em; }
+.skill-dots { display: flex; gap: 5px; }
+.skill-dot { width: 11px; height: 11px; background: var(--kv-hairline-2); border-radius: 2px; transition: background var(--dur-fast), box-shadow var(--dur-fast); }
+.skill-dot.on { background: var(--kv-green); box-shadow: 0 0 8px var(--kv-green-glow); }
+
+.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.proj-card { padding: 32px 28px; background: var(--kv-surface); border: 1px solid var(--kv-hairline); border-radius: var(--r-lg); display: flex; flex-direction: column; gap: 16px; min-height: 320px; position: relative; overflow: hidden; transition: all var(--dur-normal) var(--ease); }
+.proj-card:hover { border-color: var(--kv-green-line); transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.5), 0 0 0 1px var(--kv-green-line); }
+.proj-card .proj-num { font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.proj-card h3 { margin: 0; font-family: var(--kv-font-display); font-size: 28px; font-weight: 400; line-height: 1.2; letter-spacing: -0.01em; color: var(--kv-white); }
+.proj-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--kv-text-dim); }
+.proj-card .proj-stat { margin-top: auto; display: flex; align-items: baseline; gap: 10px; padding-top: 16px; border-top: 1px dashed var(--kv-hairline); }
+.proj-card .proj-stat-num { font-family: var(--kv-font-display); font-size: 36px; color: var(--kv-green); font-style: italic; line-height: 1; }
+.proj-card .proj-stat-label { font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+
+.manifesto { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 48px; align-items: start; }
+.manifesto-block h3 { font-family: var(--kv-font-mono); font-size: 11px; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-green); margin: 0 0 24px; }
+.manifesto-block p { font-family: var(--kv-font-display); font-size: clamp(1.4rem, 2vw, 1.85rem); font-weight: 300; font-style: italic; line-height: 1.4; color: var(--kv-white); letter-spacing: -0.005em; margin: 0 0 28px; }
+.manifesto-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.manifesto-list li { padding-left: 28px; position: relative; font-family: var(--kv-font-body); font-size: 15px; line-height: 1.6; color: var(--kv-text-dim); }
+.manifesto-list li::before { content: '→'; position: absolute; left: 0; color: var(--kv-green); font-family: var(--kv-font-mono); }
+
+.letters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+.letter { padding: 36px 36px 32px; background: var(--kv-surface); border: 1px solid var(--kv-hairline); border-radius: var(--r-lg); position: relative; }
+.letter::before { content: '"'; position: absolute; top: -10px; left: 18px; font-family: var(--kv-font-display); font-style: italic; font-size: 80px; color: var(--kv-green); line-height: 1; opacity: 0.65; }
+.letter blockquote { margin: 0 0 20px; font-family: var(--kv-font-display); font-style: italic; font-size: 21px; line-height: 1.45; font-weight: 400; color: var(--kv-white); letter-spacing: -0.005em; }
+.letter cite { display: flex; align-items: center; gap: 12px; font-family: var(--kv-font-mono); font-style: normal; font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.letter cite::before { content: ''; width: 24px; height: 1px; background: var(--kv-green); }
+
+.contact { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; margin-top: 48px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 22px; }
+.contact-row { display: flex; align-items: center; gap: 18px; padding: 18px 22px; border: 1px solid var(--kv-hairline); border-radius: var(--r-lg); background: var(--kv-surface); transition: all var(--dur-normal) var(--ease); }
+.contact-row:hover { border-color: var(--kv-green-line); background: var(--kv-surface-2); transform: translateX(4px); }
+.contact-icon { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--kv-green-line); background: var(--kv-green-tint); color: var(--kv-green-bright); border-radius: 50%; flex-shrink: 0; }
+.contact-icon svg { width: 18px; height: 18px; }
+.contact-row .ci-label { font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.contact-row .ci-val { font-family: var(--kv-font-sans); font-size: 15px; font-weight: 500; color: var(--kv-white); letter-spacing: -0.005em; margin-top: 2px; }
+
+.form { display: flex; flex-direction: column; gap: 18px; padding: 36px; border: 1px solid var(--kv-hairline); border-radius: var(--r-xl); background: var(--kv-surface); backdrop-filter: blur(10px); }
+.form-row { display: flex; flex-direction: column; gap: 8px; }
+.form-row.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row label { font-family: var(--kv-font-mono); font-size: 10px; font-weight: 500; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-muted); }
+.form input, .form textarea, .form select { width: 100%; padding: 12px 14px; background: rgba(0,0,0,0.4); border: 1px solid var(--kv-hairline-2); border-radius: var(--r-md); color: var(--kv-white); font-family: var(--kv-font-body); font-size: 14px; outline: none; transition: border-color var(--dur-fast), box-shadow var(--dur-fast); }
+.form input:focus, .form textarea:focus, .form select:focus { border-color: var(--kv-green); box-shadow: 0 0 0 3px var(--kv-green-tint); }
+.form textarea { resize: vertical; min-height: 110px; }
+.form select option { background: #1a1c1e; color: var(--kv-white); }
+.form button.submit { padding: 14px 22px; background: var(--kv-green-tint); border: 1px solid var(--kv-green-line); color: var(--kv-green-bright); font-family: var(--kv-font-mono); font-size: 11px; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; border-radius: var(--r-pill); transition: all var(--dur-normal) var(--ease); }
+.form button.submit:hover { background: var(--kv-green); color: var(--kv-black); transform: translateY(-1px); box-shadow: var(--sh-green-glow); }
+.form .success { padding: 14px 16px; border: 1px solid var(--kv-green-line); background: var(--kv-green-tint); color: var(--kv-green-bright); border-radius: var(--r-md); font-family: var(--kv-font-mono); font-size: 12px; letter-spacing: var(--tracking-caps); text-transform: uppercase; }
+
+.cta-row { display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap; }
+.btn-ghost, .btn-solid { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; font-family: var(--kv-font-mono); font-size: 11px; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; border-radius: var(--r-pill); transition: all var(--dur-normal) var(--ease); }
+.btn-ghost { border: 1px solid var(--kv-green-line); background: var(--kv-green-tint); color: var(--kv-green-bright); }
+.btn-ghost:hover { background: var(--kv-green); color: var(--kv-black); transform: translateY(-2px); box-shadow: var(--sh-green-glow); }
+.btn-solid { border: 1px solid var(--kv-hairline-2); color: var(--kv-white); }
+.btn-solid:hover { border-color: var(--kv-white); transform: translateY(-2px); }
+
+.accenture-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start; margin-top: 48px; }
+.accenture-quote { font-family: var(--kv-font-display); font-style: italic; font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1.35; color: var(--kv-white); margin: 0; font-weight: 300; letter-spacing: -0.01em; }
+.accenture-side { display: flex; flex-direction: column; gap: 14px; }
+.accenture-side .tag-strip { padding: 14px 18px; border: 1px solid var(--kv-hairline); border-radius: var(--r-md); background: var(--kv-surface); font-family: var(--kv-font-mono); font-size: 11px; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-dim); display: flex; justify-content: space-between; align-items: center; }
+.accenture-side .tag-strip .val { color: var(--kv-green); font-weight: 600; }
+
+.foot { position: relative; z-index: 5; padding: 60px 64px 80px; border-top: 1px solid var(--kv-hairline); font-family: var(--kv-font-mono); font-size: 11px; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--kv-text-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; background: var(--kv-black); }
+.foot .accent { color: var(--kv-green); }
+
+[data-skin="warm"] { --kv-green: #ff8c42; --kv-green-bright: #ffb280; --kv-green-glow: rgba(255,140,66,0.35); --kv-green-tint: rgba(255,140,66,0.08); --kv-green-line: rgba(255,140,66,0.3); }
+[data-skin="cobalt"] { --kv-green: #4a9eff; --kv-green-bright: #82c0ff; --kv-green-glow: rgba(74,158,255,0.35); --kv-green-tint: rgba(74,158,255,0.08); --kv-green-line: rgba(74,158,255,0.3); }
+[data-skin="amber"] { --kv-green: #d4af37; --kv-green-bright: #f0c860; --kv-green-glow: rgba(212,175,55,0.35); --kv-green-tint: rgba(212,175,55,0.08); --kv-green-line: rgba(212,175,55,0.3); }
+
+@media (max-width: 1080px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .proj-grid { grid-template-columns: 1fr; }
+  .accenture-grid, .manifesto, .contact, .letters, .origin-grid, .skill-grid { grid-template-columns: 1fr; gap: 40px; }
+  .chapter, .boot { padding: 110px 28px 80px; }
+  .sidenav { display: none; }
+}
+@media (max-width: 640px) {
+  .hud { padding: 18px 20px; font-size: 10px; }
+  .hud-left .mono-tag span:last-child { display: none; }
+  .foot { padding: 40px 24px; flex-direction: column; }
+  .tl-item { grid-template-columns: 1fr; gap: 8px; }
+  .form-row.split { grid-template-columns: 1fr; }
+}
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body data-skin="neon-green">
+<div id="root"></div>
+
+<script type="text/babel">
+// ─── CONTENT ─────────────────────────────────────────────────────────────────
+const CONTENT = {
+  hud: {
+    it: { status: 'OPERATIVO', loc: 'NAPOLI · IT', role: 'SENIOR ANALYST · ACCENTURE' },
+    en: { status: 'OPERATIONAL', loc: 'NAPLES · IT', role: 'SENIOR ANALYST · ACCENTURE' },
+  },
+  nav: [
+    { id: 'boot',     it: 'INTRO',        en: 'INTRO' },
+    { id: 'origin',   it: 'ORIGINE',      en: 'ORIGIN' },
+    { id: 'pivot',    it: 'IL SALTO',     en: 'THE LEAP' },
+    { id: 'climb',    it: 'LA SCALATA',   en: 'THE CLIMB' },
+    { id: 'now',      it: 'OGGI',         en: 'TODAY' },
+    { id: 'stack',    it: 'COMPETENZE',   en: 'STACK' },
+    { id: 'projects', it: 'PROGETTI',     en: 'PROJECTS' },
+    { id: 'mission',  it: 'MISSIONE',     en: 'MISSION' },
+    { id: 'letters',  it: 'INFLUENZE',    en: 'INFLUENCES' },
+    { id: 'contact',  it: 'CONTATTI',     en: 'CONTACT' },
+  ],
+  boot: {
+    it: {
+      pre: 'INIZIALIZZAZIONE PROFILO',
+      first: 'Francesco', last: 'Cesarano',
+      role: ['DEVELOPER', 'AI BUILDER', 'FUTURO FONDATORE'],
+      quote: "Quando ero un bambino, ero un sognatore. Leggevo fumetti ed ero l'eroe di quei fumetti. Guardavo film ed ero l'eroe di quei film. Adesso ogni mio sogno è diventato realtà.",
+      author: 'Elvis Presley', hint: 'SCROLLA PER COMINCIARE',
+    },
+    en: {
+      pre: 'PROFILE INITIALIZING',
+      first: 'Francesco', last: 'Cesarano',
+      role: ['DEVELOPER', 'AI BUILDER', 'FUTURE FOUNDER'],
+      quote: "When I was a child, I was a dreamer. I read comic books, and I was the hero of the comic book. I saw movies, and I was the hero in the movie. Now my dreams have come true.",
+      author: 'Elvis Presley', hint: 'SCROLL TO BEGIN',
+    },
+  },
+  origin: {
+    it: {
+      tag: 'ORIGINE · 1996 — 2016',
+      title: ['Sono nato a ', { accent: 'Napoli' }, ',', { br: true }, 'in mezzo al ', { accent: 'rumore' }, '.'],
+      lead: "Da piccolo ero un sognatore. Vivevo dentro i fumetti, dentro i film, sempre con l'idea di essere l'eroe di una storia più grande. La prima ossessione è stata la musica — volevo diventare un musicista. Ma c'era anche un'altra passione, più silenziosa, che mi teneva incollato allo schermo del pc, che mi faceva passare le notti a sperimentare.",
+      bullets: [['Nato a','Napoli, 1996'],["Prima passione","Musica"],["Seconda passione","Informatica"],["Diploma","ITI Renato Elia · 2016"],["Stato d'animo","Dreamer"]],
+      meta: { left: 'CAM_01 · 35MM', right: 'NAPOLI · IT' },
+    },
+    en: {
+      tag: 'ORIGIN · 1996 — 2016',
+      title: ['Born in ', { accent: 'Naples' }, ',', { br: true }, 'inside the ', { accent: 'noise' }, '.'],
+      lead: "I was a dreamer kid. I lived inside comic books and movies, always picturing myself as the hero of a bigger story. My first obsession was music — I wanted to become a musician. But there was another, quieter passion that kept me glued to the screen, spending nights experimenting.",
+      bullets: [['Born in','Naples, 1996'],['First passion','Music'],['Second passion','Computers'],['Diploma','ITI Renato Elia · 2016'],['Mood','Dreamer']],
+      meta: { left: 'CAM_01 · 35MM', right: 'NAPLES · IT' },
+    },
+  },
+  pivot: {
+    it: {
+      tag: '01 · IL SALTO',
+      title: ['Il giorno in cui', { br: true }, 'ho ', { accent: 'cambiato vita' }, '.'],
+      lead: 'Nel 2022 entro in Boolean — un master professionalizzante di sei mesi. Sei mesi che hanno spaccato in due la mia storia: un prima, e tutto quello che è venuto dopo.',
+      items: [
+        { year: '2016', month: 'LUG', title: 'Diploma · Perito Informatico', co: 'ITI Renato Elia', body: 'Il primo contatto serio con il codice. Esce un ragazzo che ancora non sa di volerlo fare per sempre.', tags: ['INFORMATICA', 'BASE'] },
+        { year: '2016—2021', month: '', title: 'Anni di musica e domande', co: 'Vita', body: 'Provo strade diverse. La musica resta, ma chiede troppo e restituisce poco. Inizio a sentire che il mio campo è un altro.', tags: ['CRESCITA', 'PIVOT'] },
+        { year: '2022', month: 'GEN', title: 'Boolean Careers · Master Full-Stack', co: 'Boolean', body: 'Sei mesi di full immersion. Mi cambia la vita. Esco con la consapevolezza che il codice non è solo un mestiere — è un linguaggio che parlo.', tags: ['REACT', 'JS', 'NODE', 'PIVOT'] },
+      ],
+    },
+    en: {
+      tag: '01 · THE LEAP',
+      title: ['The day I', { br: true }, 'changed my ', { accent: 'life' }, '.'],
+      lead: "In 2022 I joined Boolean — a six-month intensive bootcamp. Six months that split my story in two: a before, and everything that came after.",
+      items: [
+        { year: '2016', month: 'JUL', title: 'High-school diploma · IT specialist', co: 'ITI Renato Elia', body: "First real contact with code. Walks out a kid who doesn't yet know he'll do this forever.", tags: ['IT', 'FOUNDATION'] },
+        { year: '2016—2021', month: '', title: 'Years of music and questions', co: 'Life', body: 'I tried different paths. Music stayed, but asked too much and gave too little back. I started sensing my field was somewhere else.', tags: ['GROWTH', 'PIVOT'] },
+        { year: '2022', month: 'JAN', title: 'Boolean Careers · Full-Stack Master', co: 'Boolean', body: "Six months of full immersion. Life-changing. I came out knowing code wasn't just a job — it was a language I now spoke.", tags: ['REACT', 'JS', 'NODE', 'PIVOT'] },
+      ],
+    },
+  },
+  climb: {
+    it: {
+      tag: '02 · LA SCALATA',
+      title: ['Da stagista a ', { accent: 'mentor' }, '.', { br: true }, 'Una rampa di lancio.'],
+      lead: 'I primi due capitoli professionali. Unitiva è il colpo di fulmine con React. SFIDA è il nido — dove imparo a guidare, formare, far crescere.',
+      items: [
+        { year: '2022', month: 'SET', title: 'Stage · Frontend Developer', co: 'UNITIVA', body: 'Imparo a usare React sul serio. È amore a prima vista. Da questo momento React diventa la mia arma migliore.', tags: ['REACT', 'STAGE', 'CRESCITA'] },
+        { year: '2023', month: 'GEN', title: 'Sviluppatore · poi Tech Lead', co: 'SFIDA S.r.l.', body: 'Da stage a indeterminato. Vengo promosso, mi danno responsabilità reali: piccoli team da formare e seguire. Mi accorgo che mi piace stare un passo dietro le persone per farle salire.', tags: ['TEAM LEAD', 'MENTORING', 'PROMOZIONE'] },
+      ],
+    },
+    en: {
+      tag: '02 · THE CLIMB',
+      title: ['From intern to ', { accent: 'mentor' }, '.', { br: true }, 'A launching pad.'],
+      lead: 'The first two professional chapters. Unitiva was love-at-first-sight with React. SFIDA was the nest — where I learned to lead, train, grow people.',
+      items: [
+        { year: '2022', month: 'SEP', title: 'Intern · Frontend Developer', co: 'UNITIVA', body: 'I learned React for real. Love at first sight. From this moment on, React became my sharpest weapon.', tags: ['REACT', 'INTERNSHIP', 'GROWTH'] },
+        { year: '2023', month: 'JAN', title: 'Developer · then Tech Lead', co: 'SFIDA S.r.l.', body: 'From intern to full-time. Promoted, given real responsibility: small teams to train and follow. I realised I liked standing one step behind people, helping them climb.', tags: ['TEAM LEAD', 'MENTORING', 'PROMOTION'] },
+      ],
+    },
+  },
+  now: {
+    it: {
+      tag: '03 · OGGI · ACCENTURE',
+      title: ['Adesso costruisco', { br: true }, 'sistemi che ', { accent: 'pensano' }, '.'],
+      lead: "Senior Analyst in Accenture. L'ultimo anno è stato un'esplosione: AI generativa, sistemi agentici, RAG, knowledge engineering. Il futuro non è più una promessa — è il mio stack quotidiano.",
+      quote: '"L\'IA non sostituisce gli sviluppatori. Moltiplica chi sa come usarla. Io sto imparando a moltiplicare i miei team."',
+      side: [{ l: 'RUOLO', v: 'SR. ANALYST' },{ l: 'AZIENDA', v: 'ACCENTURE' },{ l: 'FOCUS', v: 'AI / AGENTIC' },{ l: 'TEAM', v: 'MULTIPLI' },{ l: 'STATO', v: 'ATTIVO' }],
+    },
+    en: {
+      tag: '03 · TODAY · ACCENTURE',
+      title: ['Now I build', { br: true }, 'systems that ', { accent: 'think' }, '.'],
+      lead: "Senior Analyst at Accenture. The past year exploded: generative AI, agentic systems, RAG, knowledge engineering. The future isn't a promise anymore — it's my everyday stack.",
+      quote: '"AI doesn\'t replace developers. It multiplies the ones who know how to use it. I\'m learning to multiply my teams."',
+      side: [{ l: 'ROLE', v: 'SR. ANALYST' },{ l: 'COMPANY', v: 'ACCENTURE' },{ l: 'FOCUS', v: 'AI / AGENTIC' },{ l: 'TEAMS', v: 'MULTIPLE' },{ l: 'STATUS', v: 'ACTIVE' }],
+    },
+  },
+  stats: {
+    it: {
+      tag: '04 · NUMERI',
+      title: ['Quattro anni.', { br: true }, 'Un percorso ', { accent: 'denso' }, '.'],
+      lead: 'I numeri non sono mai tutta la storia, ma raccontano la velocità.',
+      items: [
+        { n: 4, unit: '+', label: 'ANNI DA DEVELOPER', desc: 'DAL 2022' },
+        { n: 10, unit: '+', label: 'RISORSE FORMATE', desc: 'MENTORSHIP' },
+        { n: 3, unit: '', label: 'AZIENDE · 1 MULTINAZIONALE', desc: 'PERCORSO' },
+        { n: 100, unit: '%', label: 'CURIOSITÀ ATTIVA', desc: 'SEMPRE' },
+      ],
+    },
+    en: {
+      tag: '04 · NUMBERS',
+      title: ['Four years.', { br: true }, 'A ', { accent: 'dense' }, ' run.'],
+      lead: "Numbers are never the full story — but they tell you about pace.",
+      items: [
+        { n: 4, unit: '+', label: 'YEARS AS DEVELOPER', desc: 'SINCE 2022' },
+        { n: 10, unit: '+', label: "PEOPLE I'VE MENTORED", desc: 'MENTORSHIP' },
+        { n: 3, unit: '', label: 'COMPANIES · 1 MULTINATIONAL', desc: 'JOURNEY' },
+        { n: 100, unit: '%', label: 'CURIOSITY · ALWAYS ON', desc: 'ALWAYS' },
+      ],
+    },
+  },
+  stack: {
+    it: {
+      tag: '05 · STACK',
+      title: ['Gli ', { accent: 'strumenti' }, ' che uso', { br: true }, 'ogni giorno.'],
+      lead: 'Le competenze, raccontate con onestà. Cinque pallini = padronanza totale. Uno = lo so leggere ma non ci scrivo da solo.',
+      frontend: { title: 'FRONT-END · FOUNDATION', items: [{ name: 'React', lvl: 5 },{ name: 'JavaScript', lvl: 5 },{ name: 'HTML / CSS', lvl: 5 },{ name: 'TypeScript', lvl: 4 }] },
+      backend: { title: 'BACK-END · INFRA', items: [{ name: 'Node.js · Express', lvl: 3 },{ name: 'MySQL', lvl: 3 },{ name: 'Java', lvl: 2 },{ name: 'PHP · OpenAPI', lvl: 2 }] },
+      ai: { title: 'AI · LA NUOVA ARMA', items: [{ name: 'Claude Code', lvl: 5 },{ name: 'RAG Systems', lvl: 5 },{ name: 'Agentic Systems', lvl: 5 },{ name: 'LLM Implementation', lvl: 5 },{ name: 'Obsidian Knowledge', lvl: 5 }] },
+      soft: { title: 'SOFT · LA PARTE UMANA', items: [{ name: 'Mentoring · Formazione', lvl: 5 },{ name: 'Team Leadership', lvl: 4 },{ name: 'Problem Solving', lvl: 5 },{ name: 'Visione di prodotto', lvl: 4 }] },
+    },
+    en: {
+      tag: '05 · STACK',
+      title: ['The ', { accent: 'tools' }, ' I use', { br: true }, 'every day.'],
+      lead: "My skills, honest. Five dots = full command. One dot = I can read it but I don't write it solo.",
+      frontend: { title: 'FRONT-END · FOUNDATION', items: [{ name: 'React', lvl: 5 },{ name: 'JavaScript', lvl: 5 },{ name: 'HTML / CSS', lvl: 5 },{ name: 'TypeScript', lvl: 4 }] },
+      backend: { title: 'BACK-END · INFRA', items: [{ name: 'Node.js · Express', lvl: 3 },{ name: 'MySQL', lvl: 3 },{ name: 'Java', lvl: 2 },{ name: 'PHP · OpenAPI', lvl: 2 }] },
+      ai: { title: 'AI · THE NEW WEAPON', items: [{ name: 'Claude Code', lvl: 5 },{ name: 'RAG Systems', lvl: 5 },{ name: 'Agentic Systems', lvl: 5 },{ name: 'LLM Implementation', lvl: 5 },{ name: 'Obsidian Knowledge', lvl: 5 }] },
+      soft: { title: 'SOFT · THE HUMAN PART', items: [{ name: 'Mentoring · Training', lvl: 5 },{ name: 'Team Leadership', lvl: 4 },{ name: 'Problem Solving', lvl: 5 },{ name: 'Product Vision', lvl: 4 }] },
+    },
+  },
+  projects: {
+    it: {
+      tag: '06 · PROGETTI',
+      title: ['Cose che ho ', { accent: 'costruito' }, '.'],
+      lead: "Una selezione. Quello che resta sotto NDA non è qui, ma c'è.",
+      items: [
+        { num: '01', title: 'Sistemi agentici per team di sviluppo', desc: 'Più progetti di agenti AI che automatizzano il flusso di team numerosi — sviluppo, test, documentazione. Pensati per moltiplicare il throughput senza diluire la qualità.', stat: '∞', statLabel: 'TICKET RISPARMIATI' },
+        { num: '02', title: 'Mentoring · una decina di developer formati', desc: 'Almeno dieci risorse cresciute al mio fianco — la maggior parte oggi sviluppatori solidi, alcuni più bravi di me. Il mio risultato preferito.', stat: '10+', statLabel: 'DEV CRESCIUTI' },
+        { num: '03', title: "L'app di cui non parlo (ancora)", desc: "Sto costruendo qualcosa di mio. Un'app che mira ad essere fighissima. Quando sarà pronta, lo saprai.", stat: 'WIP', statLabel: 'STEALTH MODE' },
+      ],
+    },
+    en: {
+      tag: '06 · PROJECTS',
+      title: ["Things I've ", { accent: 'built' }, '.'],
+      lead: "A selection. What's under NDA isn't here — but it exists.",
+      items: [
+        { num: '01', title: 'Agentic systems for dev teams', desc: 'Multiple AI-agent projects automating workflows across large teams — dev, QA, docs. Designed to multiply throughput without diluting quality.', stat: '∞', statLabel: 'TICKETS SAVED' },
+        { num: '02', title: 'Mentored ~10 developers · grown alongside me', desc: 'At least ten engineers grew alongside me — most are solid devs today, some better than me. My favorite outcome.', stat: '10+', statLabel: 'DEVS GROWN' },
+        { num: '03', title: "The app I'm not talking about (yet)", desc: "I'm building something of my own. An app meant to be really good. When it's ready, you'll know.", stat: 'WIP', statLabel: 'STEALTH MODE' },
+      ],
+    },
+  },
+  mission: {
+    it: {
+      tag: '07 · LA MISSIONE',
+      title: ['Costruire qualcosa', { br: true }, 'che ', { accent: 'impatti' }, ' davvero.'],
+      lead: "Quello che voglio non è un titolo. È un punto: un giorno guardare indietro e vedere cose che esistono al mondo solo perché le ho fatte succedere io.",
+      manifestoTitle: 'IL MANIFESTO',
+      manifesto: "Diventare libero professionista o imprenditore. Oppure manager di un'azienda figa — di quelle dove la cultura è una cosa che si vede e non si dichiara.",
+      pillarsTitle: 'I PUNTI FERMI',
+      pillars: ['Costruire prodotti che migliorano la vita di chi li usa.','Far crescere persone — la mia leadership preferita.','Studiare l\'IA come una nuova grammatica del mondo.','Non smettere mai di essere un sognatore con un terminale aperto.'],
+      cta1: 'PARLIAMOCI', cta2: 'SCARICA CV',
+    },
+    en: {
+      tag: '07 · MISSION',
+      title: ['Build something that', { br: true }, 'actually ', { accent: 'matters' }, '.'],
+      lead: "What I want isn't a title. It's a place: one day to look back and see things that exist in the world only because I made them happen.",
+      manifestoTitle: 'THE MANIFESTO',
+      manifesto: "Become a freelancer or a founder. Or a manager at a great company — the kind where culture is something you can see, not just words on a careers page.",
+      pillarsTitle: 'WHAT I STAND ON',
+      pillars: ["Build products that make their users' life better.","Grow people — my favorite kind of leadership.","Study AI as a new grammar of the world.","Never stop being a dreamer with an open terminal."],
+      cta1: "LET'S TALK", cta2: 'DOWNLOAD CV',
+    },
+  },
+  letters: {
+    it: {
+      tag: '08 · INFLUENZE',
+      title: ['Le ', { accent: 'voci' }, ' che mi tengono', { br: true }, 'la rotta.'],
+      lead: 'Le persone, i libri, le idee che continuano a guidarmi quando il rumore aumenta.',
+      items: [
+        { q: 'Stay hungry, stay foolish.', a: 'Steve Jobs · Stanford, 2005' },
+        { q: 'Quando ero un bambino, ero un sognatore. Adesso ogni mio sogno è diventato realtà.', a: 'Elvis Presley' },
+        { q: 'Il modo migliore di prevedere il futuro è inventarlo.', a: 'Alan Kay' },
+        { q: 'Non si insegna mai a nessuno. Si crea solo lo spazio perché qualcuno impari.', a: 'parafrasi · in stile mentor' },
+      ],
+    },
+    en: {
+      tag: '08 · INFLUENCES',
+      title: ['The ', { accent: 'voices' }, ' that keep', { br: true }, 'my course.'],
+      lead: 'The people, books and ideas that keep guiding me when the noise gets loud.',
+      items: [
+        { q: 'Stay hungry, stay foolish.', a: 'Steve Jobs · Stanford, 2005' },
+        { q: 'When I was a child, I was a dreamer. Now my dreams have come true.', a: 'Elvis Presley' },
+        { q: 'The best way to predict the future is to invent it.', a: 'Alan Kay' },
+        { q: 'You never really teach anyone. You just create space for them to learn.', a: 'paraphrased · mentor mode' },
+      ],
+    },
+  },
+  contact: {
+    it: {
+      tag: '09 · CONTATTI',
+      title: ['Apriamo una ', { accent: 'connessione' }, '.'],
+      lead: "Hai un progetto, un'idea, una proposta? Preferisco contatti da freelance — ma valuto anche assunzioni se la storia è quella giusta. Scrivimi.",
+      rows: [
+        { label: 'EMAIL', val: 'cesaranofrancescomain@gmail.com', href: 'mailto:cesaranofrancescomain@gmail.com', icon: 'mail' },
+        { label: 'TELEFONO', val: '+39 338 7470283', href: 'tel:+393387470283', icon: 'phone' },
+        { label: 'LINKEDIN', val: '/in/francescocesarano', href: 'https://www.linkedin.com/in/francescocesarano/', icon: 'linkedin' },
+        { label: 'GITHUB', val: '/FrancescoMain', href: 'https://github.com/FrancescoMain', icon: 'github' },
+        { label: 'BASE', val: 'Napoli · Italia', href: null, icon: 'pin' },
+      ],
+      form: { name: 'NOME', email: 'EMAIL', company: 'AZIENDA', type: 'TIPO DI CONTATTO', types: ['Freelance / Progetto','Assunzione','Collaborazione','Altro'], msg: 'IL TUO MESSAGGIO', msgPlaceholder: 'Raccontami che stai costruendo...', submit: 'INVIA RICHIESTA', success: '✓ MESSAGGIO INVIATO. TI RISPONDO PRESTO.' },
+    },
+    en: {
+      tag: '09 · CONTACT',
+      title: ["Let's open a ", { accent: 'connection' }, '.'],
+      lead: "Got a project, an idea, an offer? I prefer freelance work — but I'll consider employment for the right story. Reach out.",
+      rows: [
+        { label: 'EMAIL', val: 'cesaranofrancescomain@gmail.com', href: 'mailto:cesaranofrancescomain@gmail.com', icon: 'mail' },
+        { label: 'PHONE', val: '+39 338 7470283', href: 'tel:+393387470283', icon: 'phone' },
+        { label: 'LINKEDIN', val: '/in/francescocesarano', href: 'https://www.linkedin.com/in/francescocesarano/', icon: 'linkedin' },
+        { label: 'GITHUB', val: '/FrancescoMain', href: 'https://github.com/FrancescoMain', icon: 'github' },
+        { label: 'BASED IN', val: 'Naples · Italy', href: null, icon: 'pin' },
+      ],
+      form: { name: 'NAME', email: 'EMAIL', company: 'COMPANY', type: 'CONTACT TYPE', types: ['Freelance / Project','Hiring','Collaboration','Other'], msg: 'YOUR MESSAGE', msgPlaceholder: "Tell me what you're building...", submit: 'SEND', success: "✓ MESSAGE SENT. I'LL GET BACK TO YOU SOON." },
+    },
+  },
+  footer: {
+    it: { l: '© FRANCESCO CESARANO · 2026', m: 'BUILT WITH REACT · CLAUDE · ☕', r: 'NAPOLI → IL MONDO' },
+    en: { l: '© FRANCESCO CESARANO · 2026', m: 'BUILT WITH REACT · CLAUDE · ☕', r: 'NAPLES → THE WORLD' },
+  },
+};
+
+// ─── BACKGROUND CANVAS ───────────────────────────────────────────────────────
+function BgCanvas({ density = 1, glyphs = true }) {
+  const ref = React.useRef(null);
+  const mouseRef = React.useRef({ x: -9999, y: -9999 });
+  const scrollRef = React.useRef(0);
+
+  React.useEffect(() => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
+    let raf;
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize() {
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+
+    const PARTICLES = Math.floor(60 * density);
+    const particles = Array.from({ length: PARTICLES }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.12, vy: -Math.random() * 0.25 - 0.05,
+      r: Math.random() * 1.2 + 0.3,
+      hue: Math.random() < 0.3 ? 'green' : 'white', life: Math.random(),
+    }));
+
+    const GLYPHS = glyphs ? Math.floor(14 * density) : 0;
+    const glyphChars = ['{','}','(',')', '<','/>', '01','10','#','*','→','·','λ','∇','Σ'];
+    const glyphArr = Array.from({ length: GLYPHS }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vy: -Math.random() * 0.18 - 0.06,
+      c: glyphChars[Math.floor(Math.random() * glyphChars.length)],
+      size: Math.random() * 10 + 9,
+      op: Math.random() * 0.18 + 0.06,
+      hue: Math.random() < 0.5 ? 'green' : 'gray',
+    }));
+
+    const onMouse = (e) => { mouseRef.current.x = e.clientX; mouseRef.current.y = e.clientY; };
+    const onLeave = () => { mouseRef.current.x = -9999; mouseRef.current.y = -9999; };
+    const onScroll = () => { scrollRef.current = window.scrollY || 0; };
+    const onResize = () => resize();
+
+    window.addEventListener('mousemove', onMouse, { passive: true });
+    window.addEventListener('mouseleave', onLeave);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+
+    const grid = 38;
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      const parallax = (scrollRef.current * 0.04) % grid;
+      const mx = mouseRef.current.x, my = mouseRef.current.y;
+
+      const cols = Math.ceil(w / grid) + 1, rows = Math.ceil(h / grid) + 1;
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const x = i * grid, y = j * grid - parallax;
+          let alpha = 0.08, color = '255,255,255';
+          if (mx > 0) {
+            const dx = x - mx, dy = y - my, d = Math.hypot(dx, dy);
+            if (d < 200) {
+              const k = 1 - d / 200;
+              alpha = 0.08 + k * 0.55;
+              if (d < 100) color = '102,255,132';
+            }
+          }
+          ctx.fillStyle = `rgba(${color},${alpha})`;
+          ctx.fillRect(x, y, 1.2, 1.2);
+        }
+      }
+
+      if (mx > 0) {
+        ctx.strokeStyle = 'rgba(76,175,80,0.06)'; ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, my); ctx.lineTo(w, my);
+        ctx.moveTo(mx, 0); ctx.lineTo(mx, h);
+        ctx.stroke();
+      }
+
+      for (const p of particles) {
+        p.x += p.vx; p.y += p.vy; p.life += 0.005;
+        if (p.y < -10 || p.x < -10 || p.x > w + 10) {
+          p.x = Math.random() * w; p.y = h + 10; p.life = 0;
+        }
+        const op = 0.15 + 0.35 * Math.abs(Math.sin(p.life * Math.PI));
+        ctx.beginPath();
+        ctx.fillStyle = p.hue === 'green' ? `rgba(102,255,132,${op})` : `rgba(255,255,255,${op * 0.7})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        if (p.hue === 'green') {
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(76,175,80,${op * 0.18})`;
+          ctx.arc(p.x, p.y, p.r * 3.2, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+
+      ctx.font = '500 11px JetBrains Mono, monospace';
+      for (const g of glyphArr) {
+        g.y += g.vy;
+        if (g.y < -20) { g.y = h + 20; g.x = Math.random() * w; }
+        ctx.fillStyle = g.hue === 'green' ? `rgba(102,255,132,${g.op})` : `rgba(200,210,220,${g.op * 0.8})`;
+        ctx.font = `500 ${g.size}px JetBrains Mono, monospace`;
+        ctx.fillText(g.c, g.x, g.y);
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', onMouse);
+      window.removeEventListener('mouseleave', onLeave);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [density, glyphs]);
+
+  return <div className="bg-layer"><canvas ref={ref} className="bg-canvas" /></div>;
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function renderTitle(parts) {
+  return parts.map((p, i) => {
+    if (typeof p === 'string') return <React.Fragment key={i}>{p}</React.Fragment>;
+    if (p.br) return <br key={i} />;
+    if (p.accent) return <span key={i} className="accent">{p.accent}</span>;
+    if (p.strike) return <span key={i} className="strike">{p.strike}</span>;
+    return null;
+  });
+}
+
+function useCounter(target, active, duration = 1400) {
+  const [val, setVal] = React.useState(0);
+  React.useEffect(() => {
+    if (!active) return;
+    let raf;
+    const start = performance.now();
+    function tick(t) {
+      const k = Math.min(1, (t - start) / duration);
+      const eased = 1 - Math.pow(1 - k, 3);
+      setVal(Math.round(target * eased));
+      if (k < 1) raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, active, duration]);
+  return val;
+}
+
+function useTypewriter(text, speed = 35, delay = 200) {
+  const [out, setOut] = React.useState('');
+  React.useEffect(() => {
+    setOut(''); let i = 0;
+    const startT = setTimeout(() => {
+      const iv = setInterval(() => {
+        i += 1; setOut(text.slice(0, i));
+        if (i >= text.length) clearInterval(iv);
+      }, speed);
+    }, delay);
+    return () => clearTimeout(startT);
+  }, [text, speed, delay]);
+  return out;
+}
+
+const Icons = {
+  mail: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>,
+  phone: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.92z"/></svg>,
+  linkedin: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>,
+  github: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>,
+  pin: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
+  arrow: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>,
+  download: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>,
+};
+
+// ─── CHAPTERS ─────────────────────────────────────────────────────────────────
+function ChBoot({ data, lang, active }) {
+  const d = data[lang];
+  const line = useTypewriter(`> ${d.pre}_`, 28, 350);
+  const [roleIdx, setRoleIdx] = React.useState(0);
+  React.useEffect(() => {
+    const iv = setInterval(() => setRoleIdx(i => (i + 1) % d.role.length), 2400);
+    return () => clearInterval(iv);
+  }, [d.role.length]);
+  return (
+    <section id="boot" className={`boot ${active ? 'is-active' : ''}`}>
+      <div className="boot-mono">{line}<span className="cursor" /></div>
+      <h1 className="boot-name fade-up">{d.first} <span className="accent">{d.last}</span></h1>
+      <div className="boot-role fade-up d2">
+        <span>{d.role[roleIdx]}</span>
+        <span className="pip" />
+        <span style={{ color: 'var(--kv-green)' }}>NAPOLI · IT</span>
+      </div>
+      <div className="boot-quote fade-up d4">
+        "{d.quote}"
+        <span className="author">— {d.author}</span>
+      </div>
+      <div className="boot-scroll-hint">
+        <span>{d.hint}</span>
+        <span className="line" />
+      </div>
+    </section>
+  );
+}
+
+function ChOrigin({ data, lang, active }) {
+  const d = data[lang];
+  return (
+    <section id="origin" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="origin-grid">
+          <div className="fade-up">
+            <div className="chapter-tag"><span>{d.tag}</span></div>
+            <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+            <p className="chapter-lead">{d.lead}</p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '12px', maxWidth: 480 }}>
+              {d.bullets.map(([l, v], i) => (
+                <li key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 16, padding: '10px 0', borderBottom: '1px dashed var(--kv-hairline)', fontFamily: 'var(--kv-font-mono)', fontSize: 12 }}>
+                  <span style={{ color: 'var(--kv-text-muted)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase' }}>{l}</span>
+                  <span style={{ color: 'var(--kv-white)' }}>{v}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="fade-up d2">
+            <div className="origin-photo-frame">
+              <img src="assets/francesco.jpg" alt="Francesco Cesarano" />
+              <span className="origin-photo-corner tl" /><span className="origin-photo-corner tr" />
+              <span className="origin-photo-corner bl" /><span className="origin-photo-corner br" />
+              <div className="origin-photo-meta">
+                <span>{d.meta.left}</span><span>{d.meta.right}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChTimeline({ data, lang, active, id }) {
+  const d = data[lang];
+  return (
+    <section id={id} className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="timeline">
+          {d.items.map((it, i) => (
+            <div key={i} className={`tl-item fade-up d${i + 1}`}>
+              <div className="tl-year">
+                <span>{it.year}</span>
+                {it.month && <span className="month">{it.month}</span>}
+              </div>
+              <div className="tl-body">
+                <h3>{it.title}</h3>
+                <div className="tl-co"><span className="badge">{it.co}</span></div>
+                <p>{it.body}</p>
+                <div>{it.tags.map((t, j) => <span key={j} className="tl-tag">{t}</span>)}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChNow({ data, lang, active }) {
+  const d = data[lang];
+  return (
+    <section id="now" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="accenture-grid">
+          <blockquote className="accenture-quote fade-up d2">{d.quote}</blockquote>
+          <div className="accenture-side fade-up d3">
+            {d.side.map((s, i) => (
+              <div key={i} className="tag-strip">
+                <span>{s.l}</span><span className="val">{s.v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatCard({ item, active, idx }) {
+  const v = useCounter(item.n, active, 1500);
+  return (
+    <div className={`stat-card fade-up d${idx + 1}`}>
+      <div className="stat-corner">{String(idx + 1).padStart(2, '0')}/04</div>
+      <div className="stat-num">{v}<span className="unit">{item.unit}</span></div>
+      <div className="stat-label">{item.label}</div>
+    </div>
+  );
+}
+
+function ChStats({ data, lang, active }) {
+  const d = data[lang];
+  return (
+    <section id="stats" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="stats-grid">
+          {d.items.map((it, i) => <StatCard key={i} item={it} active={active} idx={i} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SkillGroup({ group }) {
+  return (
+    <div className="skill-group">
+      <h4>{group.title}</h4>
+      {group.items.map((s, i) => (
+        <div key={i} className="skill-row">
+          <span className="skill-name">{s.name}</span>
+          <span className="skill-dots">
+            {[1,2,3,4,5].map(n => <span key={n} className={`skill-dot ${n <= s.lvl ? 'on' : ''}`} />)}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ChStack({ data, lang, active }) {
+  const d = data[lang];
+  return (
+    <section id="stack" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="skill-grid">
+          <div className="fade-up d1"><SkillGroup group={d.frontend} /></div>
+          <div className="fade-up d2"><SkillGroup group={d.backend} /></div>
+          <div className="fade-up d3"><SkillGroup group={d.ai} /></div>
+          <div className="fade-up d4"><SkillGroup group={d.soft} /></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChProjects({ data, lang, active }) {
+  const d = data[lang];
+  return (
+    <section id="projects" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="proj-grid">
+          {d.items.map((p, i) => (
+            <article key={i} className={`proj-card fade-up d${i + 1}`}>
+              <div className="proj-num">PROJECT · {p.num}</div>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+              <div className="proj-stat">
+                <span className="proj-stat-num">{p.stat}</span>
+                <span className="proj-stat-label">{p.statLabel}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChMission({ data, lang, active, onContact }) {
+  const d = data[lang];
+  return (
+    <section id="mission" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="manifesto">
+          <div className="manifesto-block fade-up d1">
+            <h3>{d.manifestoTitle}</h3>
+            <p>{d.manifesto}</p>
+          </div>
+          <div className="manifesto-block fade-up d2">
+            <h3>{d.pillarsTitle}</h3>
+            <ul className="manifesto-list">
+              {d.pillars.map((p, i) => <li key={i}>{p}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div className="cta-row fade-up d3">
+          <button className="btn-ghost" onClick={onContact}>{d.cta1} {Icons.arrow}</button>
+          <a className="btn-solid" href="assets/cv-francesco-cesarano.pdf" download="CV-Francesco-Cesarano.pdf">
+            {Icons.download} {d.cta2}
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChLetters({ data, lang, active }) {
+  const d = data[lang];
+  return (
+    <section id="letters" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="letters">
+          {d.items.map((l, i) => (
+            <figure key={i} className={`letter fade-up d${i + 1}`}>
+              <blockquote>{l.q}</blockquote>
+              <cite>{l.a}</cite>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChContact({ data, lang, active }) {
+  const d = data[lang];
+  const [sent, setSent] = React.useState(false);
+  const submit = (e) => {
+    e.preventDefault(); setSent(true);
+    setTimeout(() => setSent(false), 5000);
+  };
+  return (
+    <section id="contact" className={`chapter ${active ? 'is-active' : ''}`}>
+      <div className="chapter-inner">
+        <div className="fade-up">
+          <div className="chapter-tag"><span>{d.tag}</span></div>
+          <h2 className="chapter-title">{renderTitle(d.title)}</h2>
+          <p className="chapter-lead">{d.lead}</p>
+        </div>
+        <div className="contact">
+          <div className="contact-info fade-up d1">
+            {d.rows.map((r, i) => {
+              const inner = (
+                <>
+                  <span className="contact-icon">{Icons[r.icon]}</span>
+                  <span>
+                    <div className="ci-label">{r.label}</div>
+                    <div className="ci-val">{r.val}</div>
+                  </span>
+                </>
+              );
+              return r.href ? (
+                <a key={i} className="contact-row" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noopener">{inner}</a>
+              ) : (
+                <div key={i} className="contact-row">{inner}</div>
+              );
+            })}
+          </div>
+          <form className="form fade-up d2" onSubmit={submit}>
+            <div className="form-row split">
+              <div className="form-row"><label>{d.form.name}</label><input type="text" required /></div>
+              <div className="form-row"><label>{d.form.email}</label><input type="email" required /></div>
+            </div>
+            <div className="form-row split">
+              <div className="form-row"><label>{d.form.company}</label><input type="text" /></div>
+              <div className="form-row">
+                <label>{d.form.type}</label>
+                <select>{d.form.types.map((t, i) => <option key={i}>{t}</option>)}</select>
+              </div>
+            </div>
+            <div className="form-row">
+              <label>{d.form.msg}</label>
+              <textarea placeholder={d.form.msgPlaceholder} required />
+            </div>
+            {sent ? <div className="success">{d.form.success}</div>
+                  : <button type="submit" className="submit">{d.form.submit} {Icons.arrow}</button>}
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── TWEAKS PANEL ────────────────────────────────────────────────────────────
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;background:rgba(0,0,0,.06)}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' ? keyOrEdits : { [keyOrEdits]: val };
+    setValues(prev => ({ ...prev, ...edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 72 });
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current; if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
+      panel.style.right = offsetRef.current.x + 'px';
+      panel.style.bottom = offsetRef.current.y + 'px';
+    };
+    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" onClick={() => setOpen(false)}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label }) {
+  return <div className="twk-sect">{label}</div>;
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const opts = options.map(o => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex(o => o.value === value));
+  const n = opts.length;
+  return (
+    <div className="twk-row">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <div className="twk-seg">
+        <div className="twk-seg-thumb" style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map(o => (
+          <button key={o.value} type="button" onClick={() => onChange(o.value)}>{o.label}</button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'} onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+// ─── APP ─────────────────────────────────────────────────────────────────────
+const CHAPTERS = ['boot','origin','pivot','climb','now','stats','stack','projects','mission','letters','contact'];
+
+function useClock() {
+  const [t, setT] = React.useState(() => new Date());
+  React.useEffect(() => {
+    const iv = setInterval(() => setT(new Date()), 1000);
+    return () => clearInterval(iv);
+  }, []);
+  const hh = String(t.getHours()).padStart(2,'0');
+  const mm = String(t.getMinutes()).padStart(2,'0');
+  const ss = String(t.getSeconds()).padStart(2,'0');
+  return `${hh}:${mm}:${ss}`;
+}
+
+function useActiveChapter() {
+  const [active, setActive] = React.useState('boot');
+  React.useEffect(() => {
+    const sections = CHAPTERS.map(id => document.getElementById(id)).filter(Boolean);
+    if (!sections.length) return;
+    const visible = new Map();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) visible.set(e.target.id, e.intersectionRatio);
+      let best = 'boot', bestVal = -1;
+      visible.forEach((v, k) => { if (v > bestVal) { bestVal = v; best = k; } });
+      setActive(best);
+    }, { threshold: [0.15, 0.3, 0.5, 0.75] });
+    sections.forEach(s => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+  return active;
+}
+
+function useScrollProgress() {
+  const [p, setP] = React.useState(0);
+  React.useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const total = h.scrollHeight - h.clientHeight;
+      setP(total > 0 ? (h.scrollTop / total) : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return p;
+}
+
+function scrollTo(id) {
+  const el = document.getElementById(id); if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth' });
+}
+
+const NAV_ITEMS = [
+  { id: 'boot',     it: 'INTRO',      en: 'INTRO' },
+  { id: 'origin',   it: 'ORIGINE',    en: 'ORIGIN' },
+  { id: 'pivot',    it: 'IL SALTO',   en: 'THE LEAP' },
+  { id: 'climb',    it: 'LA SCALATA', en: 'THE CLIMB' },
+  { id: 'now',      it: 'OGGI',       en: 'TODAY' },
+  { id: 'stats',    it: 'NUMERI',     en: 'NUMBERS' },
+  { id: 'stack',    it: 'STACK',      en: 'STACK' },
+  { id: 'projects', it: 'PROGETTI',   en: 'PROJECTS' },
+  { id: 'mission',  it: 'MISSIONE',   en: 'MISSION' },
+  { id: 'letters',  it: 'INFLUENZE',  en: 'INFLUENCES' },
+  { id: 'contact',  it: 'CONTATTI',   en: 'CONTACT' },
+];
+
+function App() {
+  const TWEAK_DEFAULTS = { lang: 'it', skin: 'neon-green', density: 'regular', glyphs: true, scanlines: true };
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const lang = t.lang;
+  const active = useActiveChapter();
+  const progress = useScrollProgress();
+  const clock = useClock();
+
+  React.useEffect(() => { document.body.dataset.skin = t.skin; }, [t.skin]);
+  React.useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+
+  const activeIdx = CHAPTERS.indexOf(active);
+  const nextId = activeIdx >= 0 && activeIdx < CHAPTERS.length - 1 ? CHAPTERS[activeIdx + 1] : CHAPTERS[0];
+  const nextLabel = lang === 'it'
+    ? (activeIdx === CHAPTERS.length - 1 ? 'TORNA SU' : 'AVANTI')
+    : (activeIdx === CHAPTERS.length - 1 ? 'BACK TO TOP' : 'NEXT');
+
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+        const i = CHAPTERS.indexOf(active);
+        if (i >= 0 && i < CHAPTERS.length - 1) { e.preventDefault(); scrollTo(CHAPTERS[i + 1]); }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        const i = CHAPTERS.indexOf(active);
+        if (i > 0) { e.preventDefault(); scrollTo(CHAPTERS[i - 1]); }
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [active]);
+
+  const hud = CONTENT.hud[lang];
+
+  return (
+    <>
+      <BgCanvas density={t.density === 'comfy' ? 1.4 : t.density === 'compact' ? 0.7 : 1} glyphs={t.glyphs} />
+      <div className="bg-vignette" />
+      {t.scanlines && <div className="bg-scan" />}
+
+      <header className="hud">
+        <div className="hud-left">
+          <span className="dot" />
+          <span className="mono-tag">FC<span style={{ color: 'var(--kv-green)' }}>·</span>OS</span>
+          <span className="sep">/</span>
+          <span>{hud.role}</span>
+        </div>
+        <div className="hud-right">
+          <span className="hud-time">{clock}</span>
+          <span className="sep">/</span>
+          <span>{hud.loc}</span>
+          <span className="sep">/</span>
+          <span className="lang-switch" role="tablist">
+            <button className={lang === 'it' ? 'active' : ''} onClick={() => setTweak('lang', 'it')}>IT</button>
+            <button className={lang === 'en' ? 'active' : ''} onClick={() => setTweak('lang', 'en')}>EN</button>
+          </span>
+        </div>
+      </header>
+
+      <nav className="sidenav" aria-label="chapters">
+        {NAV_ITEMS.map((n, i) => (
+          <button key={n.id} className={`sidenav-item ${active === n.id ? 'active' : ''}`}
+                  onClick={() => scrollTo(n.id)} aria-label={n[lang]}>
+            <span className="tick" />
+            <span className="label">{String(i).padStart(2,'0')} · {n[lang]}</span>
+          </button>
+        ))}
+      </nav>
+
+      <main>
+        <ChBoot data={CONTENT.boot} lang={lang} active={active === 'boot'} />
+        <ChOrigin data={CONTENT.origin} lang={lang} active={active === 'origin'} />
+        <ChTimeline data={CONTENT.pivot} lang={lang} active={active === 'pivot'} id="pivot" />
+        <ChTimeline data={CONTENT.climb} lang={lang} active={active === 'climb'} id="climb" />
+        <ChNow data={CONTENT.now} lang={lang} active={active === 'now'} />
+        <ChStats data={CONTENT.stats} lang={lang} active={active === 'stats'} />
+        <ChStack data={CONTENT.stack} lang={lang} active={active === 'stack'} />
+        <ChProjects data={CONTENT.projects} lang={lang} active={active === 'projects'} />
+        <ChMission data={CONTENT.mission} lang={lang} active={active === 'mission'} onContact={() => scrollTo('contact')} />
+        <ChLetters data={CONTENT.letters} lang={lang} active={active === 'letters'} />
+        <ChContact data={CONTENT.contact} lang={lang} active={active === 'contact'} />
+      </main>
+
+      <footer className="foot">
+        <span>{CONTENT.footer[lang].l}</span>
+        <span>{CONTENT.footer[lang].m}</span>
+        <span><span className="accent">{CONTENT.footer[lang].r}</span></span>
+      </footer>
+
+      <button className="avanti" onClick={() => {
+        if (activeIdx === CHAPTERS.length - 1) window.scrollTo({ top: 0, behavior: 'smooth' });
+        else scrollTo(nextId);
+      }}>
+        <span>{nextLabel}</span>
+        <span className="arrow">↓</span>
+      </button>
+
+      <div className="progress"><div className="progress-bar" style={{ width: `${progress * 100}%` }} /></div>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label={lang === 'it' ? 'Lingua' : 'Language'} />
+        <TweakRadio label={lang === 'it' ? 'Lingua' : 'Language'} value={t.lang} options={['it','en']} onChange={v => setTweak('lang', v)} />
+        <TweakSection label={lang === 'it' ? 'Accento' : 'Accent'} />
+        <TweakRadio label={lang === 'it' ? 'Colore' : 'Color'} value={t.skin} options={['neon-green','cobalt','warm','amber']} onChange={v => setTweak('skin', v)} />
+        <TweakSection label={lang === 'it' ? 'Sfondo' : 'Background'} />
+        <TweakRadio label={lang === 'it' ? 'Densità' : 'Density'} value={t.density} options={['compact','regular','comfy']} onChange={v => setTweak('density', v)} />
+        <TweakToggle label={lang === 'it' ? 'Glifi fluttuanti' : 'Floating glyphs'} value={t.glyphs} onChange={v => setTweak('glyphs', v)} />
+        <TweakToggle label={lang === 'it' ? 'Scanlines CRT' : 'CRT scanlines'} value={t.scanlines} onChange={v => setTweak('scanlines', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
